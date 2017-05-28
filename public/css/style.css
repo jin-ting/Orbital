@@ -1,0 +1,92 @@
+.reg-bar {
+    align-self: center;
+    padding: 0 20%;
+}
+
+.login-bar {
+    align-self: center;
+    padding: 0 35%;
+}
+.navbar {
+    margin-bottom: 0px;
+    border: 0px;
+    color: red;
+}
+
+.navbar-header {
+    height: 70px;
+}
+
+.navbar-static-top {
+    border-radius: 0px;
+}
+
+.navbar-inverse {
+    background-color: #363237;
+    background-image: none;
+    background-repeat: no-repeat;
+}
+.nav-brand {
+    font-size: 40px;
+}
+
+.nav.navbar-nav li a {
+    color: #D09683;
+}
+
+body {
+    font-family: Sans-Serif;
+}
+
+img {
+    max-width: 100%;
+}
+
+.cycle-slideshow {
+    width: 100%;
+    display: block;
+    position: relative;
+    margin: 0 auto;
+}
+
+.cycle-prev, .cycle-next {
+     font-size: 200%;
+     color: #FFF;
+     display: block;
+     position: absolute;
+     top: 50%;
+     margin-top: -16px;
+     z-index: 9999;
+     cursor: pointer;
+}
+
+.cycle-prev {left: 10%;}
+
+.cycle-next {right: 10%;}
+
+.cycle-pager {
+    width: 100%;
+    text-align: center;
+    display: block;
+    position: absolute;
+    bottom: 10%;
+    z-index: 9999;
+    cursor: pointer;
+}
+
+.cycle-pager span {
+    text-indent: 100%;
+    white-space: nowrap;
+    width: 12px;
+    height: 12px;
+    display: inline-block;
+    border: 1px solid #FFF;
+    border-radius: 50%;
+    bottom: 50%;
+    margin: 0 10px;
+    overflow: hidden;
+}
+
+.cycle-pager .cycle-pager-active {
+    background: #FFF;
+}
