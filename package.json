@@ -8,20 +8,21 @@
   },
   "author": "//noComment",
   "license": "ISC",
-   "dependencies": {
-    	"bcryptjs": "*",
-    	"body-parser": "*",
-    	"connect-flash": "*",
-    	"cookie-parser": "^1.4.1",
-    	"express": "*",
-    	"express-handlebars": "*",
-    	"express-messages": "*",
-    	"express-session": "*",
-    	"express-validator": "*",
-    	"mongodb": "*",
-    	"mongoose": "*",
-    	"passport": "*",
-    	"passport-http": "*",
-    	"passport-local": "*"
-    }
+  "dependencies": {
+    "bcryptjs": "*",
+    "body-parser": "*",
+    "connect-flash": "*",
+    "cookie-parser": "^1.4.1",
+    "cytoscape": "^3.1.1",
+    "express": "*",
+    "express-handlebars": "*",
+    "express-messages": "*",
+    "express-session": "*",
+    "express-validator": "*",
+    "mongodb": "*",
+    "mongoose": "*",
+    "passport": "*",
+    "passport-http": "*",
+    "passport-local": "*"
+  }
 }
