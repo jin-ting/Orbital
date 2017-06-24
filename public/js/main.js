@@ -9,39 +9,39 @@ $(document).ready(function() {
 
     elements: [
             // nodes
-            { data: {id: 'Question' } },
-            { data: {id: 'Answer' } },
-            { data: {id: 'Right Click to Edit Node Content'} },
-            { data: {id: 'Right Click to Add New Node'} },
-            { data: {id: 'Get Started'} },
+            { data: {id: 'q1', name: 'Question'} },
+            { data: {id: 'a1', name: 'Answer'} },
+            { data: {id: 'a2', name: 'Right Click to Edit Node Content'} },
+            { data: {id: 'a3', name: 'Right Click to Add New Node'} },
+            { data: {id: 'a4', name: 'Get Started'} },
 
             // edges
             {
               data: {
-                id: 'QuestionAnswer',
-                source: 'Question',
-                target: 'Answer'
+                id: 'q1a1',
+                source: 'q1',
+                target: 'a1'
               }
             }, {
 
               data: {
-                id: 'QuestionAddtexthere',
-                source: 'Question',
-                target: 'Right Click to Edit Node Content'
+                id: 'q1a2',
+                source: 'q1',
+                target: 'a2'
               }
             }, {
 
               data: {
-                id: 'QuestionAddtexthere2',
-                source: 'Question',
-                target: 'Right Click to Add New Node'
+                id: 'q1a3',
+                source: 'q1',
+                target: 'a3'
               }
             }, {
 
               data: {
-                id: 'QuestionGetStarted',
-                source: 'Question',
-                target: 'Get Started'
+                id: 'q1a4',
+                source: 'q1',
+                target: 'a4'
               }
             }],
 
@@ -57,7 +57,7 @@ $(document).ready(function() {
                 'border-width': '1',
                 'border-style': 'lined',
                 'border-opacity': '1',
-                label: 'data(id)',
+                label: 'data(name)',
                 'text-wrap': 'wrap',
                 'text-max-width': '20',
                 'text-valign': 'center',
@@ -127,7 +127,7 @@ $(document).ready(function() {
     else if(ele.isEdge()) {
       cy.edges().unselect();
     }
-  };    
+  };  
   
   var removed;
   var removedSelected;
@@ -135,6 +135,16 @@ $(document).ready(function() {
   // demo your core ext
   var contextMenu = cy.contextMenus({
     menuItems: [
+    {
+      id: 'edit',
+      content: 'Edit Content',
+      selector: 'node',
+      onClickFunction: function(event) {
+        var target = event.target || event.cyTarget;
+        var inp = prompt("Edit Content", "No content");
+        target.json({data: {name: inp} });
+      }
+    },
     {
       id: 'remove',
       content: 'Remove',
@@ -178,20 +188,13 @@ $(document).ready(function() {
       //coreAsWell: false,
       onClickFunction: function (event) {
         var target = event.target || event.cyTarget;
-        //var data = {
-          //group: 'nodes'
-        //};
         
         var pos = event.position || event.cyPosition;
         
         cy.add([
         {
           group: 'nodes', 
-          data: {id: 'a'},
-         // position: {
-          //  x: pos.x,
-          //  y: pos.y
-          //}
+          data: {id: 'q3', name: 'new q with edge'},
           style: {
             'background-color': '#2D4262',
             'background-opacity': '0.8'
@@ -201,7 +204,7 @@ $(document).ready(function() {
           data: {
             id: 'new',
             source: target.id(),
-            target: 'a'
+            target: 'q3'
           }}
           ]);
     }
@@ -220,7 +223,7 @@ $(document).ready(function() {
         cy.add([
         {
           group: 'nodes', 
-          data: {id: '?'},
+          data: {id: 'q2', name: 'new q on core'},
           position: {
             x: pos.x,
             y: pos.y
@@ -248,7 +251,7 @@ $(document).ready(function() {
         cy.add([
         {
           group: 'nodes', 
-          data: {id: 'ans2'},
+          data: {id: 'a5', name: 'new ans'},
          // position: {
           //  x: pos.x,
           //  y: pos.y
@@ -262,7 +265,7 @@ $(document).ready(function() {
           data: {
             id: 'new',
             source: target.id(),
-            target: 'ans2'
+            target: 'a5'
           }}
           ]);
     }
@@ -272,16 +275,13 @@ $(document).ready(function() {
       content: 'Add New Answer',
       coreAsWell: true,
       onClickFunction: function (event) {
-        //var data = {
-          //group: 'nodes'
-        //};
         
         var pos = event.position || event.cyPosition;
         
         cy.add([
         {
           group: 'nodes', 
-          data: {id: 'Ans'},
+          data: {id: 'a6', name: 'new ans wo edge'},
           position: {
             x: pos.x,
             y: pos.y

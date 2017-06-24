@@ -6,6 +6,10 @@ router.get('/', function(req, res){
 	res.render('frontpage');
 });
 
+router.get('/profile', function(req, res){
+	res.render('profile');
+});
+
 function ensureAuthenticated(req, res, next){
 	if(req.isAuthenticated()){
 		return next();
@@ -19,7 +23,7 @@ router.get('/data', ensureAuthenticated, function(req, res){
 	res.render('scheduler');
 });
 
-router.get('/mindmap', ensureAuthenticated, function(req, res){
+router.get('/mindmap', function(req, res){
 	res.render('mindmap');
 });
 
