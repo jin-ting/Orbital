@@ -173,7 +173,7 @@ $(document).ready(function() {
       },
       hasTrailingDivider: true
     },                      
-    {
+    /*{
       id: 'hide',
       content: 'Hide',
       selector: '*',
@@ -182,12 +182,11 @@ $(document).ready(function() {
         target.hide();
       },
       disabled: false
-    },
+    },*/
     {
       id: 'add-new-question',
       content: 'Add New Question',
       selector: '*',
-      //coreAsWell: false,
       onClickFunction: function (event) {
         var target = event.target || event.cyTarget;
         
@@ -216,9 +215,6 @@ $(document).ready(function() {
       content: 'Add New Question',
       coreAsWell: true,
       onClickFunction: function (event) {
-        //var data = {
-          //group: 'nodes'
-        //};
         
         var pos = event.position || event.cyPosition;
         
@@ -244,9 +240,6 @@ $(document).ready(function() {
       //coreAsWell: false,
       onClickFunction: function (event) {
         var target = event.target || event.cyTarget;
-        //var data = {
-          //group: 'nodes'
-        //};
         
         var pos = event.position || event.cyPosition;
         
@@ -254,10 +247,6 @@ $(document).ready(function() {
         {
           group: 'nodes', 
           data: {id: 'a5', name: 'new ans'},
-         // position: {
-          //  x: pos.x,
-          //  y: pos.y
-          //}
           style: {
             'background-color': 'red',
             'background-opacity': '0.8'
