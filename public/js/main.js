@@ -67,7 +67,9 @@ $(document).ready(function() {
               selector: 'edge',
               style: {
                 width: '2.3',
-                'line-color': '#2D4262'
+                'line-color': '#2D4262',
+                'curve-style': 'bezier'
+
               }
             }, {
               selector: '.edgehandles-hover',
