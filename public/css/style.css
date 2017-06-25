@@ -1,3 +1,47 @@
+.image {
+  opacity: 1;
+  display: block;
+  width: 100%;
+  height: auto;
+  transition: .5s ease;
+  backface-visibility: hidden;
+}
+
+.middle {
+  transition: .5s ease;
+  opacity: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%)
+}
+
+.features-right:hover .image{
+    opacity: 0.5;
+}
+
+.features-right:hover .middle {
+    opacity: 1;
+}
+
+.features-left:hover {
+    opacity: 0.5;
+}
+
+.text-center {
+    color: #D09683;
+    font: normal 50px'Cookie', cursive;
+    padding-top: 5%;
+}
+
+.text {
+  background-color: #4CAF50;
+  color: white;
+  font-size: 16px;
+  padding: 16px 32px;
+}
+
 .reg-bar {
     align-self: center;
     padding: 0 20% 20% 20%;

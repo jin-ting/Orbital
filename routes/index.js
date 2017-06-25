@@ -7,7 +7,9 @@ router.get('/', function(req, res){
 });
 
 router.get('/profile', function(req, res){
-	res.render('profile');
+	res.render('profile', {
+		layout: 'mindmap-layout'
+	});
 });
 
 function ensureAuthenticated(req, res, next){
@@ -24,7 +26,9 @@ router.get('/data', ensureAuthenticated, function(req, res){
 });
 
 router.get('/mindmap', function(req, res){
-	res.render('mindmap');
+	res.render('mindmap', {
+		layout: 'mindmap-layout'
+	});
 });
 
 module.exports = router;

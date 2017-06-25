@@ -2,74 +2,85 @@
 <html>
 <head>
   <title>MindConnect</title>
-      <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width initial-scale=1">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width initial-scale=1">
 
-            <title>MindConnect</title>
-            <!-- Latest compiled and minified CSS -->
-            <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="keywords" content="footer, address, phone, icons" />
+  <link rel="stylesheet" href="/css/footer-distributed-with-address-and-phones.css">
+  
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css">
 
-            <!-- Optional theme -->
-            <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
-            
-            <link rel="stylesheet" type="text/css" href="/css/cytoscape-context-menus.css">
+  <link href="http://fonts.googleapis.com/css?family=Cookie" rel="stylesheet" type="text/css">
 
-            <link rel="stylesheet" type="text/css" href="http://cdnjs.cloudflare.com/ajax/libs/qtip2/2.2.0/jquery.qtip.css">
-            
-            <script src="/codebase/dhtmlxscheduler.js" type="text/javascript" charset="utf-8"></script>
-            <link rel="stylesheet" href="/codebase/dhtmlxscheduler.css" type="text/css" media
-                ="screen" title="no title" charset="utf-8">
 
-            <link rel="stylesheet" href="/css/style.css">
-            <script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
-            <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-            <!-- Include all compiled plugins (below), or include individual files as needed -->
-            <script src="js/bootstrap.min.js"></script>
-            <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-            <script src="js/jquery.cycle2.min.js"></script>
-            <script src="https://cdn.jsdelivr.net/lodash/4.17.4/lodash.min.js"></script>
-            <script src="http://cdnjs.cloudflare.com/ajax/libs/qtip2/2.2.0/jquery.qtip.js"></script>
-            <script type="text/javascript" src="js/cytoscape.min.js"></script>
-            <script type="text/javascript" src="js/cytoscape-context-menus.js"></script>
-            <script type="text/javascript" src="js/cytoscape-edgehandles.js"></script>
-            <script type="text/javascript" src="js/cytoscape-qtip.js"></script>
-            <script type="text/javascript" src="js/data.js"></script>
-            <script type="text/javascript" src="js/main.js"></script>
+  <title>MindConnect</title>
+  <!-- Latest compiled and minified CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 
-            <header class="navbar">
-            <nav class="navbar-inverse navbar-static-top">
-                <div class="container-fluid">
-                <!-- Brand and toggle get grouped for better mobile display -->
-                <div class="navbar-header">
-                  <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                  </button>
-                  <a class="navbar-brand" href="/">MindConnect</a>
-                </div>
+  <!-- Optional theme -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
 
-                <!-- Collect the nav links, forms, and other content for toggling -->
-                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                  <ul class="nav navbar-nav">
+  <link rel="stylesheet" type="text/css" href="/css/cytoscape-context-menus.css">
 
-                  {{#if user}}
-                  <li class="active"><a href="/profile"><strong>Dashboard</strong><span class="sr-only"></span></a></li>
-                  {{else}}
+  <link rel="stylesheet" type="text/css" href="http://cdnjs.cloudflare.com/ajax/libs/qtip2/2.2.0/jquery.qtip.css">
 
-                    <li><a href="/about"><strong>About</strong><span class="sr-only"></span></a></li>
+  <script src="/codebase/dhtmlxscheduler.js" type="text/javascript" charset="utf-8"></script>
+  <link rel="stylesheet" href="/codebase/dhtmlxscheduler.css" type="text/css" media
+  ="screen" title="no title" charset="utf-8">
 
-                    <li class="active"><a href="/users/register"><strong>Sign Up</strong></a></li>
+  <script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+  <!-- Include all compiled plugins (below), or include individual files as needed -->
+  <link rel="stylesheet" href="/css/style.css">
+  <script src="js/bootstrap.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+  <script src="js/jquery.cycle2.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/lodash/4.17.4/lodash.min.js"></script>
+  <script src="http://cdnjs.cloudflare.com/ajax/libs/qtip2/2.2.0/jquery.qtip.js"></script>
+  <script type="text/javascript" src="js/cytoscape.min.js"></script>
+  <script type="text/javascript" src="js/cytoscape-context-menus.js"></script>
+  <script type="text/javascript" src="js/cytoscape-edgehandles.js"></script>
+  <script type="text/javascript" src="js/cytoscape-qtip.js"></script>
+  <script type="text/javascript" src="js/data.js"></script>
+  <script type="text/javascript" src="js/main.js"></script>
 
-                    {{/if}}
+  <header class="navbar">
+    <nav class="navbar-inverse navbar-static-top">
+      <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="/"><strong>MindConnect</strong></a>
+        </div>
 
-                    {{#if user}}
-                    <li><a href="#"><strong>Link</strong></a></li>
-                    <li class="dropdown">
-                      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><strong>Collaborate</strong><span class="caret"></span></a>
-                      <ul class="dropdown-menu">
-                        <li><a href="/mindmap">MindMap</a></li>
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+          <ul class="nav navbar-nav">
+
+            {{#if user}}
+            <li class="active"><a href="/profile"><strong>Dashboard</strong><span class="sr-only"></span></a></li>
+            {{else}}
+
+            <li><a href="/about"><strong>About</strong><span class="sr-only"></span></a></li>
+
+            <li class="active"><a href="/users/register"><strong>Sign Up</strong></a></li>
+
+            {{/if}}
+
+            {{#if user}}
+            <li><a href="#"><strong>Link</strong></a></li>
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><strong>Collaborate</strong><span class="caret"></span></a>
+              <ul class="dropdown-menu">
+                <li><a href="/mindmap">MindMap</a></li>
                         <!--<li><a href="#">Scheduler</a></li>
                         <li><a href="#">Files</a></li>-->
                         <li role="separator" class="divider"></li>
@@ -89,7 +100,7 @@
                   </form>-->
                   <ul class="nav navbar-nav navbar-right">
 
-                  {{#if user}}
+                    {{#if user}}
                     <li><a href="/users/login"><strong>User Link</strong></a></li>
 
                     <li><a href="/users/logout"><strong>Sign Out</strong></a></li>
@@ -113,9 +124,69 @@
                 </div><!-- /.navbar-collapse -->
               </div><!-- /.container-fluid -->
             </nav>
-        </header>
+          </header>
 
-{{{body}}}
+          {{{body}}}
 
-</body>
-</html>
+          <footer class="footer-distributed">
+
+            <div class="footer-left">
+
+              <h3>Mind<span>Connect</span></h3>
+
+              <p class="footer-links">
+                <a href="/">Home</a>
+                ·
+                <a href="/about">About</a>
+                ·
+                <a href="/contact">Contact</a>
+              </p>
+
+              <p class="footer-company-name">//noComment &copy; 2017</p>
+            </div>
+
+            <div class="footer-center">
+
+              <div>
+                <i class="fa fa-map-marker"></i>
+                <p><span>National University of Singapore</span> Singapore</p>
+              </div>
+
+              <!--<div>
+                <i class="fa fa-phone"></i>
+                <p>+1 555 123456</p>
+              </div>-->
+
+              <div>
+                <i class="fa fa-envelope"></i>
+                <p><a href="mailto:support@company.com">nocomment@gmail.com</a></p>
+              </div>
+
+            </div>
+
+            <div class="footer-right">
+
+              <p class="footer-company-about">
+                <span>About Us</span>
+                . <br>
+                . <br>
+                . <br>
+                . <br>
+                . 
+              </p>
+
+              <div class="footer-icons">
+
+                <!--<a href="#"><i class="fa fa-facebook"></i></a>
+                <a href="#"><i class="fa fa-twitter"></i></a>
+                <a href="#"><i class="fa fa-linkedin"></i></a>-->
+                <a href="https://github.com/1352noComment/mindmap"><i class="fa fa-github"></i></a>
+
+              </div>
+
+            </div>
+
+            </footer>
+
+        </body>
+        </html>
