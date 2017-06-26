@@ -1,5 +1,23 @@
 $(document).ready(function() {
 
+  $('.description-mindmap').hide();
+  $('.description-calendar').hide();
+
+  $('#calendar').on("mouseenter", function(){
+    $('.description-calendar').show('slow');
+  });
+
+  $('#calendar').on("mouseleave", function(){
+    $('.description-calendar').hide('slow');
+  });
+
+   $('#mindmap').on("mouseenter", function(){
+    $('.description-mindmap').show('slow');
+  });
+
+  $('#mindmap').on("mouseleave", function(){
+    $('.description-mindmap').hide('slow');
+  });
 
 //bootbox.prompt("This is the default prompt!", function(result){
  //        console.log(result); 

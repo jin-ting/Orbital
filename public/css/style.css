@@ -1,8 +1,38 @@
+.description-mindmap {
+  opacity: 1;
+  font: normal 25px 'Cookie';
+  padding: 2% 10% 10% 52%;
+}
+
+.description-calendar {
+  opacity: 1;
+  font: normal 25px 'Cookie';
+  padding: 2% 51% 10% 10%;
+}
+
+.features-left {
+  padding-bottom: 4%;
+}
+
+#calendar:hover {
+  opacity: 0.5;
+}
+
+#mindmap:hover {
+  opacity: 0.5;
+}
+
+.navbar-brand {
+   font: normal 36px'Cookie', cursive;
+}
+
+.sr-only {
+  padding-top: 5px;
+}
+
 .image {
   opacity: 1;
   display: block;
-  width: 100%;
-  height: auto;
   transition: .5s ease;
   backface-visibility: hidden;
 }
@@ -17,28 +47,16 @@
   -ms-transform: translate(-50%, -50%)
 }
 
-.features-right:hover .image{
-    opacity: 0.5;
-}
-
-.features-right:hover .middle {
-    opacity: 1;
-}
-
-.features-left:hover {
-    opacity: 0.5;
-}
-
 .text-center {
     color: #D09683;
     font: normal 50px'Cookie', cursive;
-    padding-top: 5%;
+    padding-top: 2%;
 }
 
 .text {
   background-color: #4CAF50;
-  color: white;
-  font-size: 16px;
+  color: black;
+  font-size: 100px;
   padding: 16px 32px;
 }
 
