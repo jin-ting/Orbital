@@ -31,4 +31,8 @@ router.get('/mindmap', function(req, res){
 	});
 });
 
+router.get('/popup', function(req, res){
+	res.render('popups');
+});
+
 module.exports = router;

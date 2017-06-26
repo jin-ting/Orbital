@@ -1,5 +1,13 @@
 $(document).ready(function() {
 
+
+//bootbox.prompt("This is the default prompt!", function(result){
+ //        console.log(result); 
+         //target.json({data: {name: inp} });
+//});
+        
+// Passing in options
+
   $('.mySlideshows').cycle();
 
   var cy = cytoscape({
@@ -112,6 +120,9 @@ $(document).ready(function() {
 
 //Context Menu
 
+var numQ = 1;
+var numA = 4;
+
   var selectAllOfTheSameType = function(ele) {
     cy.elements().unselect();
     if(ele.isNode()) {
@@ -144,7 +155,7 @@ $(document).ready(function() {
       onClickFunction: function(event) {
         var target = event.target || event.cyTarget;
         var inp = prompt("Edit Content", "No content");
-        target.json({data: {name: inp} });
+         target.json({data: {name: inp} });
       }
     },
     {
@@ -191,11 +202,12 @@ $(document).ready(function() {
         var target = event.target || event.cyTarget;
         
         var pos = event.position || event.cyPosition;
+        var inp = prompt("Enter question", "No question");
         
         cy.add([
         {
           group: 'nodes', 
-          data: {id: 'q3', name: 'new q with edge'},
+          data: {id: 'q3', name: inp},
           style: {
             'background-color': '#2D4262',
             'background-opacity': '0.8'
@@ -217,11 +229,12 @@ $(document).ready(function() {
       onClickFunction: function (event) {
         
         var pos = event.position || event.cyPosition;
+        var inp = prompt("Enter question", "No question entered");
         
         cy.add([
         {
           group: 'nodes', 
-          data: {id: 'q2', name: 'new q on core'},
+          data: {id: 'q2', name: inp},
           position: {
             x: pos.x,
             y: pos.y
@@ -242,11 +255,13 @@ $(document).ready(function() {
         var target = event.target || event.cyTarget;
         
         var pos = event.position || event.cyPosition;
+
+        var inp = prompt("Enter answer", "No answer");
         
         cy.add([
         {
           group: 'nodes', 
-          data: {id: 'a5', name: 'new ans'},
+          data: {id: 'a5', name: inp},
           style: {
             'background-color': 'red',
             'background-opacity': '0.8'
@@ -268,11 +283,12 @@ $(document).ready(function() {
       onClickFunction: function (event) {
         
         var pos = event.position || event.cyPosition;
+        var inp = prompt("Enter answer", "No answer");
         
         cy.add([
         {
           group: 'nodes', 
-          data: {id: 'a6', name: 'new ans wo edge'},
+          data: {id: 'a6', name: inp},
           position: {
             x: pos.x,
             y: pos.y
