@@ -2,16 +2,18 @@
   opacity: 1;
   font: normal 25px 'Cookie';
   padding: 2% 10% 10% 52%;
+  font-color: #363237;
 }
 
 .description-calendar {
   opacity: 1;
   font: normal 25px 'Cookie';
   padding: 2% 51% 10% 10%;
+  font-color: #363237;
 }
 
 .features-left {
-  padding-bottom: 4%;
+  padding-bottom: 3%;
 }
 
 #calendar:hover {
@@ -24,10 +26,6 @@
 
 .navbar-brand {
    font: normal 36px'Cookie', cursive;
-}
-
-.sr-only {
-  padding-top: 5px;
 }
 
 .image {
@@ -48,9 +46,9 @@
 }
 
 .text-center {
-    color: #D09683;
     font: normal 50px'Cookie', cursive;
-    padding-top: 2%;
+    padding-top: 3%;
+    color: #363237;
 }
 
 .text {

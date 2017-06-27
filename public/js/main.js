@@ -35,39 +35,39 @@ $(document).ready(function() {
 
     elements: [
             // nodes
-            { data: {id: 'q1', name: 'Question'} },
-            { data: {id: 'a1', name: 'Answer'} },
-            { data: {id: 'a2', name: 'Right Click to Edit Node Content'} },
-            { data: {id: 'a3', name: 'Right Click to Add New Node'} },
-            { data: {id: 'a4', name: 'Get Started'} },
+            { data: {id: '1.1', type: 'q', name: 'Question'} },
+            { data: {id: '2.1', type: 'a', name: 'Answer'} },
+            { data: {id: '2.2', type: 'a', name: 'Right Click to Edit Node Content'} },
+            { data: {id: '2.3', type: 'a', name: 'Right Click to Add New Node'} },
+            { data: {id: '2.4', type: 'a', name: 'Get Started'} },
 
             // edges
             {
               data: {
                 id: 'q1a1',
-                source: 'q1',
-                target: 'a1'
+                source: '1.1',
+                target: '2.1'
               }
             }, {
 
               data: {
                 id: 'q1a2',
-                source: 'q1',
-                target: 'a2'
+                source: '1.1',
+                target: '2.2'
               }
             }, {
 
               data: {
                 id: 'q1a3',
-                source: 'q1',
-                target: 'a3'
+                source: '1.1',
+                target: '2.3'
               }
             }, {
 
               data: {
                 id: 'q1a4',
-                source: 'q1',
-                target: 'a4'
+                source: '1.1',
+                target: '2.4'
               }
             }],
 
@@ -85,9 +85,10 @@ $(document).ready(function() {
                 'border-opacity': '1',
                 label: 'data(name)',
                 'text-wrap': 'wrap',
-                'text-max-width': '20',
+                'text-max-width': '50px',
                 'text-valign': 'center',
-                'text-halign': 'center'
+                'text-halign': 'center',
+                'padding': '7px'
               }
             }, {
               selector: 'edge',
@@ -127,19 +128,18 @@ $(document).ready(function() {
             }],
 
             layout: {
-              name: 'circle',
+              name: 'concentric',
               fit: false,
               circle: true,
-              animate: true,
-              boundingBox: undefined,
               nodeDimensionsIncludeLabels: true
             }
           });
 
 //Context Menu
 
-var numQ = 1;
-var numA = 4;
+var numQ = 0.1;
+var numA = 0.4;
+var numE = 0.4;
 
   var selectAllOfTheSameType = function(ele) {
     cy.elements().unselect();
@@ -172,6 +172,7 @@ var numA = 4;
       selector: 'node',
       onClickFunction: function(event) {
         var target = event.target || event.cyTarget;
+
         var inp = prompt("Edit Content", "No content");
          target.json({data: {name: inp} });
       }
@@ -221,11 +222,16 @@ var numA = 4;
         
         var pos = event.position || event.cyPosition;
         var inp = prompt("Enter question", "No question");
-        
+        numQ += 0.1;
+        var newID = 1 + numQ;
+        numE += 0.1;
+        var newEdge = 10 + numE;
+
+        console.log("TID:" + newID + " pID: " + target.id());
         cy.add([
         {
           group: 'nodes', 
-          data: {id: 'q3', name: inp},
+          data: {id: newID, type: 'q', name: inp},
           style: {
             'background-color': '#2D4262',
             'background-opacity': '0.8'
@@ -233,11 +239,17 @@ var numA = 4;
         }, {
           group: 'edges',
           data: {
-            id: 'new',
+            id: newEdge,
             source: target.id(),
-            target: 'q3'
+            target: newID
           }}
           ]);
+
+        var layout = cy.elements().layout({
+          name: 'concentric'
+        });
+
+        layout.run();
     }
   },
     {
@@ -248,11 +260,14 @@ var numA = 4;
         
         var pos = event.position || event.cyPosition;
         var inp = prompt("Enter question", "No question entered");
+
+        numQ += 0.1;
+        var newID = 1 + numQ;
         
         cy.add([
         {
           group: 'nodes', 
-          data: {id: 'q2', name: inp},
+          data: {id: newID, type: 'q', name: inp},
           position: {
             x: pos.x,
             y: pos.y
@@ -262,6 +277,12 @@ var numA = 4;
             'background-opacity': '0.8'
           }
         }]);
+
+        var layout = cy.elements().layout({
+          name: 'concentric'
+        });
+
+        layout.run();
       }
     },
     {
@@ -275,23 +296,34 @@ var numA = 4;
         var pos = event.position || event.cyPosition;
 
         var inp = prompt("Enter answer", "No answer");
+
+        numA += 0.1;
+        var newID = 2 + numA;
+        numE += 0.1;
+        var newEdge = 10 + numE;
         
         cy.add([
         {
           group: 'nodes', 
-          data: {id: 'a5', name: inp},
+          data: {id: newID, type: 'a', name: inp},
           style: {
-            'background-color': 'red',
+            'background-color': 'green',
             'background-opacity': '0.8'
           }
         }, {
           group: 'edges',
           data: {
-            id: 'new',
+            id: newEdge,
             source: target.id(),
-            target: 'a5'
+            target: newID
           }}
           ]);
+
+        var layout = cy.elements().layout({
+          name: 'concentric'
+        });
+
+        layout.run();
     }
   },
         {
@@ -302,20 +334,29 @@ var numA = 4;
         
         var pos = event.position || event.cyPosition;
         var inp = prompt("Enter answer", "No answer");
+
+        numA += 0.1;
+        var newID = 2 + numA;
         
         cy.add([
         {
           group: 'nodes', 
-          data: {id: 'a6', name: inp},
+          data: {id: newID, type: 'a', name: inp},
           position: {
             x: pos.x,
             y: pos.y
           },
           style: {
-            'background-color': '#73605B',
+            'background-color': 'green',
             'background-opacity': '0.8'
           }
         }]);
+
+        var layout = cy.elements().layout({
+          name: 'concentric'
+        });
+
+        layout.run();
       }
     },
     {
