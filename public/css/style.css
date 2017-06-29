@@ -1,5 +1,17 @@
+.modal-header {
+  background-color: #C0C0C0;
+}
+
+.modal-footer {
+  background-color: #C0C0C0;
+}
+
+.modal-body {
+  background-color: white;
+}
+
 .modal-title {
-  color: #2D4262;
+  color: #363237;
 }
 
 .description-mindmap {
