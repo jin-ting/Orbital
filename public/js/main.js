@@ -1,15 +1,5 @@
 $(document).ready(function() {
 
- /* $('.contact').on("click", function(){
-    bootbox.prompt({
-    title: "This is a prompt with a textarea!",
-    inputType: 'textarea',
-    callback: function (result) {
-        console.log(result);
-    },
-});
-});*/
-
   $('#contact').click(function() {
     $('#contactForm').fadeToggle();
   })
@@ -20,33 +10,33 @@ $(document).ready(function() {
     if (!container.is(e.target) // if the target of the click isn't the container...
         && container.has(e.target).length === 0) // ... nor a descendant of the container
     {
-        container.fadeOut();
+      container.fadeOut();
     }
   });
 
-$('.description-mindmap').hide();
-$('.description-calendar').hide();
+  $('.description-mindmap').hide();
+  $('.description-calendar').hide();
 
-$('#calendar').on("mouseenter", function(){
-  $('.description-calendar').show('slow');
-});
+  $('#calendar').on("mouseenter", function(){
+    $('.description-calendar').show('slow');
+  });
 
-$('#calendar').on("mouseleave", function(){
-  $('.description-calendar').hide('slow');
-});
+  $('#calendar').on("mouseleave", function(){
+    $('.description-calendar').hide('slow');
+  });
 
-$('#mindmap').on("mouseenter", function(){
-  $('.description-mindmap').show('slow');
-});
+  $('#mindmap').on("mouseenter", function(){
+    $('.description-mindmap').show('slow');
+  });
 
-$('#mindmap').on("mouseleave", function(){
-  $('.description-mindmap').hide('slow');
-});
+  $('#mindmap').on("mouseleave", function(){
+    $('.description-mindmap').hide('slow');
+  });
 
-$('.mySlideshows').cycle();
+  $('.mySlideshows').cycle();
 
-var cy = cytoscape({
-  container: document.getElementById('cy'),
+  var cy = cytoscape({
+    container: document.getElementById('cy'),
 
 //Default Layout
 
@@ -193,8 +183,10 @@ var removedSelected;
           title: "Type Your Content Here:",
           inputType: 'textarea',
           callback: function(result) {
-            var inp = result;
-            target.json({data: {name: inp} });
+            if (result !== null && result !== "") {
+              var inp = result;
+              target.json({data: {name: inp} });
+            }
           }
         });
       }
@@ -234,43 +226,44 @@ var removedSelected;
         
         var pos = event.position || event.cyPosition;
 
-        numQ += 0.1;
-        var newID = 1 + numQ;
-        numE += 0.1;
-        var newEdge = 10 + numE;
-
         bootbox.prompt({
           title: "Type Your Question Here:",
           inputType: 'textarea',
           callback: function(result) {
-            var inp = result;
+            if (result !== null && result !== "") {
+              var inp = result;
 
-            cy.add([
-            {
-              group: 'nodes', 
-              data: {id: newID, type: 'q', name: inp, user: 'new'},
-              style: {
-                'background-color': '#2D4262',
-                'background-opacity': '0.8'
-              }
-            }, {
-              group: 'edges',
-              data: {
-                id: newEdge,
-                source: target.id(),
-                target: newID
-              }}
-              ]);
+              numQ += 0.1;
+              var newID = 1 + numQ;
+              numE += 0.1;
+              var newEdge = 10 + numE;
 
-            var layout = cy.elements().layout({
-              name: 'concentric'
-            });
+              cy.add([
+              {
+                group: 'nodes', 
+                data: {id: newID, type: 'q', name: inp, user: 'new'},
+                style: {
+                  'background-color': '#2D4262',
+                  'background-opacity': '0.8'
+                }
+              }, {
+                group: 'edges',
+                data: {
+                  id: newEdge,
+                  source: target.id(),
+                  target: newID
+                }}
+                ]);
+
+              var layout = cy.elements().layout({
+                name: 'concentric'
+              });
 
 
-            layout.run();
+              layout.run();
 
-          }
-        });
+            }}
+          });
       }
     },
     {
@@ -281,37 +274,40 @@ var removedSelected;
 
         var pos = event.position || event.cyPosition;
 
-        numQ += 0.1;
-        var newID = 1 + numQ;
+        
 
         bootbox.prompt({
           title: "Type Your Question Here:",
           inputType: 'textarea',
           callback: function(result) {
-            var inp = result;
+            if (result !== null && result !== "") {
+              var inp = result;
 
-            cy.add([
-            {
-              group: 'nodes', 
-              data: {id: newID, type: 'q', name: inp, user: 'new'},
-              position: {
-                x: pos.x,
-                y: pos.y
-              },
-              style: {
-                'background-color': '#2D4262',
-                'background-opacity': '0.8'
-              }
-            }]);
+              numQ += 0.1;
+              var newID = 1 + numQ;
 
-            var layout = cy.elements().layout({
-              name: 'concentric'
-            });
+              cy.add([
+              {
+                group: 'nodes', 
+                data: {id: newID, type: 'q', name: inp, user: 'new'},
+                position: {
+                  x: pos.x,
+                  y: pos.y
+                },
+                style: {
+                  'background-color': '#2D4262',
+                  'background-opacity': '0.8'
+                }
+              }]);
 
-            layout.run();
+              var layout = cy.elements().layout({
+                name: 'concentric'
+              });
 
-          }
-        });
+              layout.run();
+
+            }}
+          });
       }
     },
     {
@@ -320,48 +316,50 @@ var removedSelected;
       selector: '*',
       //coreAsWell: false,
       onClickFunction: function (event) {
+        
         var target = event.target || event.cyTarget;
 
         var inp;
 
         var pos = event.position || event.cyPosition;
 
-        numA += 0.1;
-        var newID = 2 + numA;
-        numE += 0.1;
-        var newEdge = 10 + numE;
-
         bootbox.prompt({
           title: "Type Your Answer Here:",
           inputType: 'textarea',
           callback: function(result) {
-            var inp = result;
+            if (result !== null && result !== "") {
+              var inp = result;
 
-            cy.add([
-            {
-              group: 'nodes', 
-              data: {id: newID, type: 'a', name: inp, user: 'new'},
-              style: {
-                'background-color': 'green',
-                'background-opacity': '0.8'
-              }
-            }, {
-              group: 'edges',
-              data: {
-                id: newEdge,
-                source: target.id(),
-                target: newID
-              }}
-              ]);
+              numA += 0.1;
+              var newID = 2 + numA;
+              numE += 0.1;
+              var newEdge = 10 + numE;
 
-            var layout = cy.elements().layout({
-              name: 'concentric'
-            });
+              cy.add([
+              {
+                group: 'nodes', 
+                data: {id: newID, type: 'a', name: inp, user: 'new'},
+                style: {
+                  'background-color': 'green',
+                  'background-opacity': '0.8'
+                }
+              }, {
+                group: 'edges',
+                data: {
+                  id: newEdge,
+                  source: target.id(),
+                  target: newID
+                }}
+                ]);
 
-            layout.run();
+              var layout = cy.elements().layout({
+                name: 'concentric'
+              });
 
-          }
-        });
+              layout.run();
+
+            }}
+          });
       }
     },
     {
@@ -370,41 +368,45 @@ var removedSelected;
       coreAsWell: true,
       onClickFunction: function (event) {
 
+
         var pos = event.position || event.cyPosition;
 
         var inp;
 
-        numA += 0.1;
-        var newID = 2 + numA;
+        
 
         bootbox.prompt({
           title: "Type Your Answer Here:",
           inputType: 'textarea',
           callback: function(result) {
-            var inp = result;
+            if (result !== null && result !== "") {
+              var inp = result;
 
-            cy.add([
-            {
-              group: 'nodes', 
-              data: {id: newID, type: 'a', name: inp, user: 'new'},
-              position: {
-                x: pos.x,
-                y: pos.y
-              },
-              style: {
-                'background-color': 'green',
-                'background-opacity': '0.8'
-              }
-            }]);
+              numA += 0.1;
+              var newID = 2 + numA;
 
-            var layout = cy.elements().layout({
-              name: 'concentric'
-            });
+              cy.add([
+              {
+                group: 'nodes', 
+                data: {id: newID, type: 'a', name: inp, user: 'new'},
+                position: {
+                  x: pos.x,
+                  y: pos.y
+                },
+                style: {
+                  'background-color': 'green',
+                  'background-opacity': '0.8'
+                }
+              }]);
 
-            layout.run();
+              var layout = cy.elements().layout({
+                name: 'concentric'
+              });
 
-          }
-        });
+              layout.run();
+
+            }}
+          });
       }
     },
     {
@@ -414,7 +416,7 @@ var removedSelected;
       show: false,
       onClickFunction: function (event) {
         removedSelected = cy.$(':selected').remove();
-        
+
         contextMenu.hideMenuItem('remove-selected');
         contextMenu.showMenuItem('restore-selected');
       }
