@@ -6,6 +6,10 @@ router.get('/', function(req, res){
 	res.render('frontpage');
 });
 
+router.get('/about', function(req, res){
+	res.render('about');
+});
+
 router.get('/profile', function(req, res){
 	res.render('profile', {
 		layout: 'mindmap-layout'

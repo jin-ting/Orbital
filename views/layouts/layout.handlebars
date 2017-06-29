@@ -22,16 +22,24 @@
   <!-- Optional theme -->
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
 
+  <link rel="stylesheet" type="text/css" href="/css/about.css">
+
   <link rel="stylesheet" type="text/css" href="/css/cytoscape-context-menus.css">
 
   <link rel="stylesheet" type="text/css" href="http://cdnjs.cloudflare.com/ajax/libs/qtip2/2.2.0/jquery.qtip.css">
 
   <script src="/codebase/dhtmlxscheduler.js" type="text/javascript" charset="utf-8"></script>
-  <link rel="stylesheet" href="/codebase/dhtmlxscheduler.css" type="text/css" media
-  ="screen" title="no title" charset="utf-8">
+  <link rel="stylesheet" href="/codebase/dhtmlxscheduler.css" type="text/css" media="screen" title="no title" charset="utf-8">
 
-  <script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+
+  <script type="text/javascript" src="/js/bootbox.min.js"></script>
+
+  <script type="text/javascript" src="/js/particles.js"></script>
+  <script type="text/javascript" src="/js/particles.json"></script>
+
+  <script type="text/javascript" src="js/about.js"></script>
+  
   <!-- Include all compiled plugins (below), or include individual files as needed -->
   <link rel="stylesheet" href="/css/style.css">
   <script src="js/bootstrap.min.js"></script>
@@ -39,12 +47,16 @@
   <script src="js/jquery.cycle2.min.js"></script>
   <script src="https://cdn.jsdelivr.net/lodash/4.17.4/lodash.min.js"></script>
   <script src="http://cdnjs.cloudflare.com/ajax/libs/qtip2/2.2.0/jquery.qtip.js"></script>
+
+  <script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
   <script type="text/javascript" src="js/cytoscape.min.js"></script>
   <script type="text/javascript" src="js/cytoscape-context-menus.js"></script>
   <script type="text/javascript" src="js/cytoscape-edgehandles.js"></script>
   <script type="text/javascript" src="js/cytoscape-qtip.js"></script>
   <script type="text/javascript" src="js/data.js"></script>
+
   <script type="text/javascript" src="js/main.js"></script>
+
 
   <header class="navbar">
     <nav class="navbar-inverse navbar-static-top">
@@ -85,7 +97,7 @@
                         <li role="separator" class="divider"></li>
                         <li><a href="/data">Scheduler</a></li>
                         <li role="separator" class="divider"></li>
-                        <li><a href="/users/mindmap">Files</a></li>
+                        <li class="popup"><a href="/users/mindmap">Files</a></li>
                       </ul>
                     </li>
                     {{/if}}
@@ -124,6 +136,9 @@
               </div><!-- /.container-fluid -->
             </nav>
           </header>
+          </head>
+
+          <body>
 
           {{{body}}}
 
@@ -138,7 +153,7 @@
                 ·
                 <a href="/about">About</a>
                 ·
-                <a href="/contact">Contact</a>
+                <a href="#" class="contact">Contact</p>
               </p>
 
               <p class="footer-company-name">//noComment &copy; 2017</p>

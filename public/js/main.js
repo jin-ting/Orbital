@@ -1,5 +1,15 @@
 $(document).ready(function() {
 
+  $('.contact').on("click", function(){
+    bootbox.prompt({
+    title: "This is a prompt with a textarea!",
+    inputType: 'textarea',
+    callback: function (result) {
+        console.log(result);
+    },
+});
+  });
+
   $('.description-mindmap').hide();
   $('.description-calendar').hide();
 
@@ -19,13 +29,6 @@ $(document).ready(function() {
     $('.description-mindmap').hide('slow');
   });
 
-//bootbox.prompt("This is the default prompt!", function(result){
- //        console.log(result); 
-         //target.json({data: {name: inp} });
-//});
-        
-// Passing in options
-
   $('.mySlideshows').cycle();
 
   var cy = cytoscape({
@@ -35,11 +38,11 @@ $(document).ready(function() {
 
     elements: [
             // nodes
-            { data: {id: '1.1', type: 'q', name: 'Question'} },
-            { data: {id: '2.1', type: 'a', name: 'Answer'} },
-            { data: {id: '2.2', type: 'a', name: 'Right Click to Edit Node Content'} },
-            { data: {id: '2.3', type: 'a', name: 'Right Click to Add New Node'} },
-            { data: {id: '2.4', type: 'a', name: 'Get Started'} },
+            { data: {id: '1.1', type: 'q', name: 'Question', user: 'default'} },
+            { data: {id: '2.1', type: 'a', name: 'Answer', user: 'default'} },
+            { data: {id: '2.2', type: 'a', name: 'Right Click to Edit Node Content', user: 'default'} },
+            { data: {id: '2.3', type: 'a', name: 'Right Click to Add New Node', user: 'default'} },
+            { data: {id: '2.4', type: 'a', name: 'Get Started', user: 'default'} },
 
             // edges
             {
@@ -81,7 +84,6 @@ $(document).ready(function() {
                 'background-color': '#2D4262',
                 'background-opacity': '0.7',
                 'border-width': '1',
-                'border-style': 'lined',
                 'border-opacity': '1',
                 label: 'data(name)',
                 'text-wrap': 'wrap',
@@ -173,8 +175,10 @@ var numE = 0.4;
       onClickFunction: function(event) {
         var target = event.target || event.cyTarget;
 
-        var inp = prompt("Edit Content", "No content");
+        bootbox.prompt("Type Your Content Here:", function(result){ 
+          var inp = result;
          target.json({data: {name: inp} });
+       });
       }
     },
     {
@@ -203,16 +207,6 @@ var numE = 0.4;
       },
       hasTrailingDivider: true
     },                      
-    /*{
-      id: 'hide',
-      content: 'Hide',
-      selector: '*',
-      onClickFunction: function (event) {
-        var target = event.target || event.cyTarget;
-        target.hide();
-      },
-      disabled: false
-    },*/
     {
       id: 'add-new-question',
       content: 'Add New Question',
@@ -221,17 +215,20 @@ var numE = 0.4;
         var target = event.target || event.cyTarget;
         
         var pos = event.position || event.cyPosition;
-        var inp = prompt("Enter question", "No question");
+
         numQ += 0.1;
         var newID = 1 + numQ;
         numE += 0.1;
         var newEdge = 10 + numE;
 
-        console.log("TID:" + newID + " pID: " + target.id());
+        bootbox.prompt("Type Your Question Here:", function(result){ 
+
+          var inp = result;
+
         cy.add([
         {
           group: 'nodes', 
-          data: {id: newID, type: 'q', name: inp},
+          data: {id: newID, type: 'q', name: inp, user: 'new'},
           style: {
             'background-color': '#2D4262',
             'background-opacity': '0.8'
@@ -249,7 +246,10 @@ var numE = 0.4;
           name: 'concentric'
         });
 
+
         layout.run();
+
+      });
     }
   },
     {
@@ -259,15 +259,18 @@ var numE = 0.4;
       onClickFunction: function (event) {
         
         var pos = event.position || event.cyPosition;
-        var inp = prompt("Enter question", "No question entered");
 
         numQ += 0.1;
         var newID = 1 + numQ;
-        
+
+        bootbox.prompt("Type Your Question Here", function(result){ 
+
+          var inp = result;
+
         cy.add([
         {
           group: 'nodes', 
-          data: {id: newID, type: 'q', name: inp},
+          data: {id: newID, type: 'q', name: inp, user: 'new'},
           position: {
             x: pos.x,
             y: pos.y
@@ -283,6 +286,8 @@ var numE = 0.4;
         });
 
         layout.run();
+
+      });
       }
     },
     {
@@ -292,20 +297,24 @@ var numE = 0.4;
       //coreAsWell: false,
       onClickFunction: function (event) {
         var target = event.target || event.cyTarget;
-        
-        var pos = event.position || event.cyPosition;
 
-        var inp = prompt("Enter answer", "No answer");
+        var inp;
+
+        var pos = event.position || event.cyPosition;
 
         numA += 0.1;
         var newID = 2 + numA;
         numE += 0.1;
         var newEdge = 10 + numE;
+
+        bootbox.prompt("Type Your Answer Here", function(result){ 
+
+            inp = result; 
         
         cy.add([
         {
           group: 'nodes', 
-          data: {id: newID, type: 'a', name: inp},
+          data: {id: newID, type: 'a', name: inp, user: 'new'},
           style: {
             'background-color': 'green',
             'background-opacity': '0.8'
@@ -324,6 +333,8 @@ var numE = 0.4;
         });
 
         layout.run();
+
+      });
     }
   },
         {
@@ -333,15 +344,20 @@ var numE = 0.4;
       onClickFunction: function (event) {
         
         var pos = event.position || event.cyPosition;
-        var inp = prompt("Enter answer", "No answer");
+
+        var inp;
 
         numA += 0.1;
         var newID = 2 + numA;
-        
+
+        bootbox.prompt("Type Your Answer Here", function(result){ 
+
+          inp = result;
+
         cy.add([
         {
           group: 'nodes', 
-          data: {id: newID, type: 'a', name: inp},
+          data: {id: newID, type: 'a', name: inp, user: 'new'},
           position: {
             x: pos.x,
             y: pos.y
@@ -357,6 +373,8 @@ var numE = 0.4;
         });
 
         layout.run();
+
+      });
       }
     },
     {
@@ -416,7 +434,7 @@ var numE = 0.4;
 //Qtip
 
     cy.elements().qtip({
-      content: function(){ return 'Posted by User ' + this.id() },
+      content: function(){ return 'Last edited by ' + this.data('user') },
       position: {
         my: 'top center',
         at: 'bottom center'

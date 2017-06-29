@@ -76,7 +76,6 @@ app.use(function (req, res, next) {
 });
 
 
-
 app.use('/', routes);
 app.use('/users', users);
 //app.use('/data', secure);
