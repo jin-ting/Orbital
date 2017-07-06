@@ -84,19 +84,23 @@ elements: [
               style: {
                 width: 'label',
                 height: 'label',
-                shape: 'roundrectangle',
-                'background-color': '#2D4262',
+                shape: 'ellipse',
+                'background-color': '#7A8B8B',
+                'color': '#363237',
+                'avoidOverlap': 'true',
                 'background-opacity': '0.7',
                 'border-width': '1',
                 'border-opacity': '1',
+                'border-color': '#363237',
                 label: 'data(name)',
                 'text-wrap': 'wrap',
                 'text-max-width': '50px',
                 'text-valign': 'center',
                 'text-halign': 'center',
-                'padding': '7px'
+                'padding': '15px'
               }
-            }, {
+            },
+            {
               selector: 'edge',
               style: {
                 width: '2.3',
@@ -134,9 +138,7 @@ elements: [
             }],
 
             layout: {
-              name: 'concentric',
-              fit: false,
-              circle: true,
+              name: 'cose-bilkent',
               nodeDimensionsIncludeLabels: true
             }
           });
@@ -243,7 +245,7 @@ var removedSelected;
                 group: 'nodes', 
                 data: {id: newID, type: 'q', name: inp, user: 'new'},
                 style: {
-                  'background-color': '#2D4262',
+                  'background-color': '#7A8B8B',
                   'background-opacity': '0.8'
                 }
               }, {
@@ -256,7 +258,8 @@ var removedSelected;
                 ]);
 
               var layout = cy.elements().layout({
-                name: 'concentric'
+                name: 'cose-bilkent',
+                avoidOverlap: true
               });
 
 
@@ -295,17 +298,10 @@ var removedSelected;
                   y: pos.y
                 },
                 style: {
-                  'background-color': '#2D4262',
+                  'background-color': '#7A8B8B',
                   'background-opacity': '0.8'
                 }
               }]);
-
-              var layout = cy.elements().layout({
-                name: 'concentric'
-              });
-
-              layout.run();
-
             }}
           });
       }
@@ -340,8 +336,10 @@ var removedSelected;
                 group: 'nodes', 
                 data: {id: newID, type: 'a', name: inp, user: 'new'},
                 style: {
-                  'background-color': 'green',
-                  'background-opacity': '0.8'
+                  'background-color': '#D09683',
+                  'background-opacity': '0.8',
+                  'shape': 'roundrectangle',
+                  'border-color': '#73605B'
                 }
               }, {
                 group: 'edges',
@@ -349,11 +347,14 @@ var removedSelected;
                   id: newEdge,
                   source: target.id(),
                   target: newID
+                }, style: {
+                  'line-color': '#73605B'
                 }}
                 ]);
 
               var layout = cy.elements().layout({
-                name: 'concentric'
+                name: 'cose-bilkent',
+                avoidOverlap: true
               });
 
               layout.run();
@@ -394,17 +395,108 @@ var removedSelected;
                   y: pos.y
                 },
                 style: {
-                  'background-color': 'green',
-                  'background-opacity': '0.8'
+                  'background-color': '#D09683',
+                  'background-opacity': '0.8',
+                  'shape': 'roundrectangle',
+                  'border-color': '#73605B'
                 }
               }]);
+            }}
+          });
+      }
+    },
+    {
+      id: 'add-custom-node-on-core',
+      content: 'Add Custom Node',
+      selector: '*',
+      onClickFunction: function(event) {
+        var target = event.target || event.cyTarget;
+
+        var inp;
+
+        var pos = event.position || event.cyPosition;
+
+        bootbox.prompt({
+          title: "Type Your Content Here:",
+          inputType: 'textarea',
+          callback: function(result) {
+            if (result !== null && result !== "") {
+              var inp = result;
+
+              numA += 0.1;
+              var newID = 2 + numA;
+              numE += 0.1;
+              var newEdge = 10 + numE;
+
+              cy.add([
+              {
+                group: 'nodes', 
+                data: {id: newID, type: 'a', name: inp, user: 'new'},
+                style: {
+                  'background-color': '#4E313E',
+                  'background-opacity': '0.6',
+                  'shape': 'roundrectangle',
+                  'border-color': '#73605B'
+                }
+              }, {
+                group: 'edges',
+                data: {
+                  id: newEdge,
+                  source: target.id(),
+                  target: newID
+                }, style: {
+                  'line-color': '#73605B'
+                }}
+                ]);
 
               var layout = cy.elements().layout({
-                name: 'concentric'
+                name: 'cose-bilkent',
+                avoidOverlap: true
               });
 
               layout.run();
 
+            }}
+          });
+      }
+    },
+    {
+      id: 'add-custom-node',
+      content: 'Add Custom Node',
+      coreAsWell: true,
+      onClickFunction: function(event) {
+
+        var target = event.target || event.cyTarget;
+
+        var pos = event.position || event.cyPosition;
+
+        var inp;  
+
+        bootbox.prompt({
+          title: "Type Your Content Here:",
+          inputType: 'textarea',
+          callback: function(result) {
+            if (result !== null && result !== "") {
+              var inp = result;
+
+              numA += 0.1;
+              var newID = 2 + numA;
+
+              cy.add([
+              {
+                group: 'nodes', 
+                data: {id: newID, type: 'a', name: inp, user: 'new'},
+                position: {
+                  x: pos.x,
+                  y: pos.y
+                },
+                style: {
+                  'background-color': '#4E313E',
+                  'background-opacity': '0.6',
+                  'shape': 'roundrectangle',
+                  'border-color': '#73605B'
+                }
+              }]);
             }}
           });
       }
