@@ -10,6 +10,8 @@ var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
 var mongo = require('mongodb');
 var mongoose = require('mongoose');
+var socket = require('socket.io');
+
 
 mongoose.connect('mongodb://localhost/loginapp');
 var db = mongoose.connection;
@@ -151,9 +153,17 @@ app.post('/data', function(req, res){
         res.send("Not supported operation");
 });*/
 
+
 // Set Port
 app.set('port', (process.env.PORT || 3000));
 
-app.listen(app.get('port'), function(){
-  console.log('Server started on port '+app.get('port'));
+var server = app.listen(app.get('port'), function(){
+  console.log('Server Started on Port '+ app.get('port'));
+});
+
+//Socket Setup
+var io = socket(server);
+
+io.on('connection', function(socket){
+  console.log('socket connection made');
 });

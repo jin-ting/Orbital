@@ -1,5 +1,7 @@
 $(document).ready(function() {
 
+  var socket = io.connect('http://localhost:3000');
+
   $('#contact').click(function() {
     $('#contactForm').fadeToggle();
   })

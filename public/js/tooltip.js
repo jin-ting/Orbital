@@ -39,6 +39,29 @@ new jBox('Tooltip', {
   content: 'Save Mind Map',
 });
 
+var memberOne = 'Test 1';
+var memberTwo = 'Test 2'
+
+new jBox('Modal', {
+  attach: '#show-members',
+  width: 350,
+  height: 200,
+  blockScroll: false,
+  animation: 'zoomIn',
+  draggable: 'title',
+  closeButton: true,
+  content: '<em><strong>Active</strong></em><br>'+ memberOne + '<br><br><strong><em>Inactive</em></strong><br>' + memberTwo,
+  title: '<h4><strong>Group Members</strong></h4>',
+  overlay: false,
+  reposition: false,
+  repositionOnOpen: false
+});
+
+
+
+
+//References
+
 new jBox('Tooltip', {
   attach: '#Tooltip-1',
   content: 'This is a basic jBox tooltip'
