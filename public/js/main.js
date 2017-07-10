@@ -152,7 +152,7 @@ elements: [
           });
 
   cy.on('ready', function () {
-    updateBounds();
+    cy.center();
   });
 //if they resize the window, resize the diagram
 $(window).resize(function () {
