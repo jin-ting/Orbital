@@ -14,7 +14,10 @@
   <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css">
 
   <link href="http://fonts.googleapis.com/css?family=Cookie" rel="stylesheet" type="text/css">
-
+  
+  <link rel="stylesheet" type="text/css" href="css/tooltip.css">
+  <link rel="stylesheet" type="text/css" href="css/jBox.css">
+  
 
   <title>MindConnect</title>
   <!-- Latest compiled and minified CSS -->
@@ -58,7 +61,8 @@
   <script src="js/modernizr-2.6.2.min.js"></script>
   <script src="js/polyfills.js"></script>
   <script type="text/javascript" src="js/demo1.js"></script>
-
+  <script type="text/javascript" src="js/tooltip.js"></script>
+  <script type="text/javascript" src="js/jBox.min.js"></script>
 
 </head>
 <body>
@@ -73,11 +77,11 @@
 <button class="cn-button" id="cn-button">+</button>
 <div class="cn-wrapper" id="cn-wrapper">
    <ul>
-       <li><a href="#"><span class="fa fa-plus"></span></a></li>
-       <li><a href="#"><span class="fa fa-circle"></span></a></li>
-       <li><a href="#"><span class="icon-home"></span></a></li>
-       <li><a href="#"><span class="fa fa-file-image-o"></span></a></li>
-       <li><a href="#"><span class="icon-envelope-alt"></span></a></li>
+       <li><a href="#"><span class="fa fa-plus" id="add-member"></span></a></li>
+       <li><a href="#"><span class="fa fa-circle" id="show-members"></span></a></li>
+       <li><a href="#"><span class="icon-home" id="profile"></span></a></li>
+       <li><a href="#"><span class="fa fa-download" id="download"></span></a></li>
+       <li><a href="#"><span class="fa fa-floppy-o" id="save"></span></a></li>
    </ul>
 </div>
 <div id="cn-overlay" class="cn-overlay"></div>
