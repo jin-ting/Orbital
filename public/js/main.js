@@ -153,9 +153,12 @@ $(window).resize(function () {
 });
 
 var updateBounds = function () {
+  var sidebarHeight = 400;
+  sidebarHeight += 400;
   var bounds = cy.elements().boundingBox();
   $('#cy').css('height', bounds.h + 400);
   $('#cy').css('width', bounds.w + 900);
+  $('#sidebar').css('height', sidebarHeight);
   cy.resize();
   cy.center();
 };
