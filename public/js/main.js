@@ -94,7 +94,7 @@ elements: [
                 'border-color': '#363237',
                 label: 'data(name)',
                 'text-wrap': 'wrap',
-                'text-max-width': '50px',
+                'text-max-width': 50,
                 'text-valign': 'center',
                 'text-halign': 'center',
                 'padding': '15px'
@@ -136,18 +136,35 @@ elements: [
                 'source-arrow-color': 'red'
               }
             }],
-
+            zoomingEnabled: false,
             layout: {
               name: 'cose-bilkent',
-              nodeDimensionsIncludeLabels: true
+              nodeDimensionsIncludeLabels: true,
+              avoidOverlap: true
             }
           });
 
+  cy.on('ready', function () {
+    updateBounds();
+  });
+//if they resize the window, resize the diagram
+$(window).resize(function () {
+  updateBounds();
+});
+
+var updateBounds = function () {
+  var bounds = cy.elements().boundingBox();
+  $('#cy').css('height', bounds.h + 400);
+  $('#cy').css('width', bounds.w + 900);
+  cy.resize();
+  cy.center();
+};
 //Context Menu
 
-var numQ = 0.1;
-var numA = 0.4;
-var numE = 0.4;
+var numQ = 0.00000000001;
+var numA = 0.00000000004;
+var numE = 0.00000000004;
+var numC = 0;
 
 var selectAllOfTheSameType = function(ele) {
   cy.elements().unselect();
@@ -235,9 +252,9 @@ var removedSelected;
             if (result !== null && result !== "") {
               var inp = result;
 
-              numQ += 0.1;
+              numQ += 0.00000000001;
               var newID = 1 + numQ;
-              numE += 0.1;
+              numE += 0.00000000001;
               var newEdge = 10 + numE;
 
               cy.add([
@@ -262,11 +279,8 @@ var removedSelected;
                 avoidOverlap: true
               });
 
-
               layout.run();
-
-            }}
-          });
+            }}}).then(updateBounds());
       }
     },
     {
@@ -286,7 +300,7 @@ var removedSelected;
             if (result !== null && result !== "") {
               var inp = result;
 
-              numQ += 0.1;
+              numQ += 0.00000000001;
               var newID = 1 + numQ;
 
               cy.add([
@@ -303,7 +317,7 @@ var removedSelected;
                 }
               }]);
             }}
-          });
+          }).then(updateBounds());
       }
     },
     {
@@ -312,7 +326,7 @@ var removedSelected;
       selector: '*',
       //coreAsWell: false,
       onClickFunction: function (event) {
-        
+
         var target = event.target || event.cyTarget;
 
         var inp;
@@ -326,9 +340,9 @@ var removedSelected;
             if (result !== null && result !== "") {
               var inp = result;
 
-              numA += 0.1;
+              numA += 0.00000000001;
               var newID = 2 + numA;
-              numE += 0.1;
+              numE += 0.00000000001;
               var newEdge = 10 + numE;
 
               cy.add([
@@ -360,7 +374,7 @@ var removedSelected;
               layout.run();
 
             }}
-          });
+          }).then(updateBounds());
       }
     },
     {
@@ -383,7 +397,7 @@ var removedSelected;
             if (result !== null && result !== "") {
               var inp = result;
 
-              numA += 0.1;
+              numA += 0.00000000001;
               var newID = 2 + numA;
 
               cy.add([
@@ -402,7 +416,7 @@ var removedSelected;
                 }
               }]);
             }}
-          });
+          }).then(updateBounds());
       }
     },
     {
@@ -423,9 +437,9 @@ var removedSelected;
             if (result !== null && result !== "") {
               var inp = result;
 
-              numA += 0.1;
-              var newID = 2 + numA;
-              numE += 0.1;
+              numC += 0.00000000001;
+              var newID = 3 + numC;
+              numE += 0.00000000001;
               var newEdge = 10 + numE;
 
               cy.add([
@@ -435,8 +449,8 @@ var removedSelected;
                 style: {
                   'background-color': '#4E313E',
                   'background-opacity': '0.6',
-                  'shape': 'roundrectangle',
-                  'border-color': '#73605B'
+                  'shape': 'rectangle',
+                  'border-color': '#4E313E'
                 }
               }, {
                 group: 'edges',
@@ -445,7 +459,7 @@ var removedSelected;
                   source: target.id(),
                   target: newID
                 }, style: {
-                  'line-color': '#73605B'
+                  'line-color': '#4E313E'
                 }}
                 ]);
 
@@ -457,7 +471,7 @@ var removedSelected;
               layout.run();
 
             }}
-          });
+          }).then(updateBounds());
       }
     },
     {
@@ -479,8 +493,8 @@ var removedSelected;
             if (result !== null && result !== "") {
               var inp = result;
 
-              numA += 0.1;
-              var newID = 2 + numA;
+              numC += 0.00000000001;
+              var newID = 3 + numC;
 
               cy.add([
               {
@@ -493,12 +507,12 @@ var removedSelected;
                 style: {
                   'background-color': '#4E313E',
                   'background-opacity': '0.6',
-                  'shape': 'roundrectangle',
-                  'border-color': '#73605B'
+                  'shape': 'rectangle',
+                  'border-color': '#4E313E'
                 }
               }]);
             }}
-          });
+          }).then(updateBounds());
       }
     },
     {
