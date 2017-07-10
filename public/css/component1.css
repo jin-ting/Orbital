@@ -14,11 +14,6 @@ body {
   height: 100%;
 }
 
-body {
-  background: #f06060;
-  color: #f06060;
-}
-
 .csstransforms .cn-wrapper {
   font-size: 1em;
   width: 26em;
@@ -74,13 +69,13 @@ body {
 .cn-button {
   border: none;
   background: none;
-  color: #f06060;
+  color: #fff;
   text-align: center;
   font-size: 1.8em;
   padding-bottom: 1em;
   height: 3.5em;
   width: 3.5em;
-  background-color: #fff;
+  background-color: #D09683;
   position: fixed;
   left: 50%;
   margin-left: -1.75em;
@@ -93,7 +88,7 @@ body {
 .cn-button:hover,
 .cn-button:active,
 .cn-button:focus {
-  color: #aa1010;
+  color: black;
 }
 
 .csstransforms .cn-wrapper li {
