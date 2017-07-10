@@ -14,6 +14,13 @@ $(document).ready(function() {
     }
   });
 
+  $('.sidebar-users').hide();
+
+  $('#sidebar').on('mousenter', function(){
+    $('#sidebar').hide();
+    $('.sidebar-users').show('slow');
+  });
+
   $('.description-mindmap').hide();
   $('.description-calendar').hide();
 
