@@ -145,6 +145,7 @@ var server = app.listen(app.get('port'), function(){
 
 
 //Socket Setup
+
 var io = socket(server);
 
 io.sockets.on('connection', function(socket){
@@ -161,6 +162,14 @@ io.sockets.on('connection', function(socket){
 
   socket.on('addQuestionCore', function(info) {
     io.sockets.emit('addQuestionCore', info);
+  });
+
+  socket.on('addAnswer', function(info) {
+    io.sockets.emit('addAnswer', info);
+  });
+
+  socket.on('addAnswerOnCore', function(info) {
+    io.sockets.emit('addAnswerOnCore', info);
   });
 
 });

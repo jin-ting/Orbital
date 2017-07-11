@@ -7,6 +7,60 @@ $(document).ready(function() {
   socket.on('edit', editNode);
   socket.on('addQuestion', addQuestionEdge);
   socket.on('addQuestionCore', addQuestionOnCore);
+  socket.on('addAnswer', addAnswerEdge);
+  socket.on('addAnswerOnCore', newAnswerOnCore);
+
+  function newAnswerOnCore(info) {
+    cy.add([
+    {
+      group: 'nodes', 
+      data: {id: info.AID, type: 'a', name: info.input, user: 'new'},
+      position: {
+        x: info.position.x,
+        y: info.position.y
+      },
+      style: {
+        'background-color': '#D09683',
+        'background-opacity': '0.8',
+        'shape': 'roundrectangle',
+        'border-color': '#73605B'
+      }
+    }]);
+
+    updateBounds();
+  }
+
+  function addAnswerEdge(info) {
+    cy.add([
+    {
+      group: 'nodes', 
+      data: {id: info.AID, type: 'a', name: info.input, user: 'new'},
+      style: {
+        'background-color': '#D09683',
+        'background-opacity': '0.8',
+        'shape': 'roundrectangle',
+        'border-color': '#73605B'
+      }
+    }, {
+      group: 'edges',
+      data: {
+        id: info.EID,
+        source: info.targetID,
+        target: info.AID
+      }, style: {
+        'line-color': '#73605B'
+      }}
+      ]);
+
+    var layout = cy.elements().layout({
+      name: 'cose-bilkent',
+      avoidOverlap: true
+    });
+
+    layout.run();
+
+    updateBounds();
+  }
 
   function addQuestionOnCore(info) {
 
@@ -364,36 +418,16 @@ var removedSelected;
               numE += 0.00000000001;
               var newEdge = 10 + numE;
 
-              cy.add([
-              {
-                group: 'nodes', 
-                data: {id: newID, type: 'a', name: inp, user: 'new'},
-                style: {
-                  'background-color': '#D09683',
-                  'background-opacity': '0.8',
-                  'shape': 'roundrectangle',
-                  'border-color': '#73605B'
-                }
-              }, {
-                group: 'edges',
-                data: {
-                  id: newEdge,
-                  source: target.id(),
-                  target: newID
-                }, style: {
-                  'line-color': '#73605B'
-                }}
-                ]);
+              var info = {
+                input: result,
+                AID: newID,
+                EID: newEdge,
+                targetID: target.id()
+              }
 
-              var layout = cy.elements().layout({
-                name: 'cose-bilkent',
-                avoidOverlap: true
-              });
+              socket.emit('addAnswer', info);
 
-              layout.run();
-
-            }}
-          }).then(updateBounds());
+            }}});
       }
     },
     {
@@ -407,8 +441,6 @@ var removedSelected;
 
         var inp;
 
-        
-
         bootbox.prompt({
           title: "Type Your Answer Here:",
           inputType: 'textarea',
@@ -419,23 +451,15 @@ var removedSelected;
               numA += 0.00000000001;
               var newID = 2 + numA;
 
-              cy.add([
-              {
-                group: 'nodes', 
-                data: {id: newID, type: 'a', name: inp, user: 'new'},
-                position: {
-                  x: pos.x,
-                  y: pos.y
-                },
-                style: {
-                  'background-color': '#D09683',
-                  'background-opacity': '0.8',
-                  'shape': 'roundrectangle',
-                  'border-color': '#73605B'
-                }
-              }]);
-            }}
-          }).then(updateBounds());
+              var info = {
+                input: result,
+                AID: newID,
+                position: pos
+              }
+
+              socket.emit('addAnswerOnCore', info);
+
+            }}});
       }
     },
     {

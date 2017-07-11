@@ -27,10 +27,11 @@ router.get('/:id/add', isLoggedIn, function(req, res){
   res.render('profile/profile_add');
 });
 
-router.post('/:id/add', function(req, res) {
+router.post('/:id/add', isLoggedIn, function(req, res) {
   req.checkBody('title', 'Title is required').notEmpty();
   req.checkBody('description', 'Description is required').notEmpty();
   var errors = req.validationErrors();
+
   if(errors){
     res.redirect('profile/profile_add',{
       errors:errors
@@ -46,25 +47,25 @@ router.post('/:id/add', function(req, res) {
       friends : req.user
 
     });
-  }
-  profile.save(function(err){
-    if (err) {
-      console.log(err);
-      return;
-    }
-    else {
-      req.flash('success', 'Successfully added document!');
-      res.redirect('/mindmap');
-    }
-  });
-});
+
+    profile.save(function(err){
+      if (err) {
+        console.log(err);
+        return;
+      }
+      else {
+        req.flash('success', 'Successfully added document!');
+        res.redirect('/mindmap');
+      }
+    });
+  }});
 
 
 
 router.get('/edit/:id', isLoggedIn,function(req, res) {
   Profile.findById(req.params.id, function(err, profile){
     if (!err)
-    res.render('profile/profile_edit', {profiles :profile});
+      res.render('profile/profile_edit', {profiles :profile});
   });
 });
 
@@ -81,7 +82,7 @@ router.get('/edit/:id', isLoggedIn,function(req, res) {
             for (var r=0; r< profile[i].friends.length;r++) {
 
               if (profile[i].friends[r].equals(req.user._id))
-              res.render('profile/profile');
+                res.render('profile/profile');
             }
           }
           req.flash('danger', 'Not Authorized');
@@ -96,7 +97,7 @@ router.get('/edit/:id', isLoggedIn,function(req, res) {
   router.get('/delete/:id', isLoggedIn,function(req, res) {
     Profile.findById(req.params.id, function(err, profile){
       if (!err)
-      res.render('profile/profile_delete', {profiles :profile});
+        res.render('profile/profile_delete', {profiles: profile});
     });
   });
 
@@ -105,7 +106,7 @@ router.get('/edit/:id', isLoggedIn,function(req, res) {
   router.post('/delete/:id', function(req, res){
     Profile.findById(req.params.id, function(err, profile){
       if (err)
-      res.status(404).send("page not found");
+        res.status(404).send("page not found");
 
       if(!(profile.user.equals(req.user._id))){
         res.status(500).send('No authorisation');
@@ -117,7 +118,7 @@ router.get('/edit/:id', isLoggedIn,function(req, res) {
             res.status(500).send('Unable to remove');
           }
           else {
-            res.redirect('/accounts/profile');
+            res.redirect('/accounts/:id');
           }
         });
       }
@@ -131,14 +132,14 @@ router.get('/edit/:id', isLoggedIn,function(req, res) {
         res.status(500).send('Wrong');
       }
       else {
-        User.findOne({'email' :req.body.friend}).exec( function(err,user) {
+        User.findOne({'email': req.body.friend}).exec( function(err,user) {
           if (err)
-          console.log(err);
+            console.log(err);
           else {
             profile.friends.push(user.id);
             profile.save();
             console.log("send invitataion");
-            res.redirect('/accounts/profile');
+            res.redirect('/accounts/:id');
           }
         });
       }
@@ -146,20 +147,30 @@ router.get('/edit/:id', isLoggedIn,function(req, res) {
   });
 
 
-  router.get('/mindmap',isLoggedIn, function(req, res){
-    res.render('mindmap', {
-      layout: 'mindmap-layout'
-    });
+  router.get('/mindmaps/:id', function(req, res){
+    Profile.findById(req.params.id, function(err, profile){
+      if (err)
+        res.status(404).send("page not found");
+
+      if(!(profile.user.equals(req.user._id))){
+        res.status(500).send('No authorisation');
+      }
+
+      else {
+        res.render('mindmap', {
+          layout: 'mindmap-layout'
+        });
+      }});
   });
 
 
-  function isLoggedIn(req, res, next) {
-    if (req.isAuthenticated()) {
-      return next();
+    function isLoggedIn(req, res, next) {
+      if (req.isAuthenticated()) {
+        return next();
+      }
+      req.session.oldUrl = req.url;
+      req.flash('error_msg','You are not logged in');
+      res.redirect('/users/login');
     }
-    req.session.oldUrl = req.url;
-    req.flash('error_msg','You are not logged in');
-    res.redirect('/users/login');
-  }
 
-  module.exports = router;
+    module.exports = router;
