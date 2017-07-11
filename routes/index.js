@@ -10,12 +10,6 @@ router.get('/about', function(req, res){
 	res.render('about');
 });
 
-router.get('/profile', function(req, res){
-	res.render('profile', {
-		layout: 'mindmap-layout'
-	});
-});
-
 function ensureAuthenticated(req, res, next){
 	if(req.isAuthenticated()){
 		return next();
@@ -25,18 +19,10 @@ function ensureAuthenticated(req, res, next){
 	}
 }
 
-router.get('/data', ensureAuthenticated, function(req, res){
-	res.render('scheduler');
-});
-
 router.get('/mindmap', function(req, res){
 	res.render('mindmap', {
 		layout: 'mindmap-layout'
 	});
-});
-
-router.get('/popup', function(req, res){
-	res.render('popups');
 });
 
 module.exports = router;

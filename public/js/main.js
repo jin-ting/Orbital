@@ -1,48 +1,68 @@
 $(document).ready(function() {
 
+  //Websocket Connection
+
   var socket = io.connect('http://localhost:3000');
 
-  $('#contact').click(function() {
-    $('#contactForm').fadeToggle();
-  })
+  socket.on('edit', editNode);
+  socket.on('addQuestion', addQuestionEdge);
+  socket.on('addQuestionCore', addQuestionOnCore);
 
-  $(document).mouseup(function (e) {
-    var container = $("#contactForm");
+  function addQuestionOnCore(info) {
 
-    if (!container.is(e.target) // if the target of the click isn't the container...
-        && container.has(e.target).length === 0) // ... nor a descendant of the container
+    cy.add([
     {
-      container.fadeOut();
-    }
-  });
+      group: 'nodes', 
+      data: {id: info.QID, type: 'q', name: info.input, user: 'new'},
+      position: {
+        x: info.position.x,
+        y: info.position.y
+      },
+      style: {
+        'background-color': '#7A8B8B',
+        'background-opacity': '0.8'
+      }
+    }]);
 
-  $('.sidebar-users').hide();
+    updateBounds();
+  }
 
-  $('#sidebar').on('mousenter', function(){
-    $('#sidebar').hide();
-    $('.sidebar-users').show('slow');
-  });
+  function addQuestionEdge(info) {
 
-  $('.description-mindmap').hide();
-  $('.description-calendar').hide();
+    cy.add([
+    {
+      group: 'nodes', 
+      data: {id: info.QID, type: 'q', name: info.input, user: 'new'},
+      style: {
+        'background-color': '#7A8B8B',
+        'background-opacity': '0.8'
+      }
+    }, {
+      group: 'edges',
+      data: {
+        id: info.EID,
+        source: info.targetID,
+        target: info.QID
+      }}
+      ]);
 
-  $('#calendar').on("mouseenter", function(){
-    $('.description-calendar').show('slow');
-  });
+    var layout = cy.elements().layout({
+      name: 'cose-bilkent',
+      avoidOverlap: true
+    });
 
-  $('#calendar').on("mouseleave", function(){
-    $('.description-calendar').hide('slow');
-  });
+    layout.run();
 
-  $('#mindmap').on("mouseenter", function(){
-    $('.description-mindmap').show('slow');
-  });
+    updateBounds();
+  }
 
-  $('#mindmap').on("mouseleave", function(){
-    $('.description-mindmap').hide('slow');
-  });
+  function editNode(info) {
+    console.log('Broadcasted ' + info.input + ' at target ' + info.targetID);
+    var targetNode = cy.getElementById(info.targetID);
+    targetNode.json({data: {name: info.input} });
+  }
 
-  $('.mySlideshows').cycle();
+  //Cytoscape Default Mind Map Interface
 
   var cy = cytoscape({
     container: document.getElementById('cy'),
@@ -153,6 +173,8 @@ elements: [
             }
           });
 
+  //Center Mindmap
+
   cy.on('ready', function () {
     cy.center();
   });
@@ -171,7 +193,11 @@ var updateBounds = function () {
   cy.resize();
   cy.center();
 };
+
+
 //Context Menu
+
+//Numbering nodes based on type for ID
 
 var numQ = 0.00000000001;
 var numA = 0.00000000004;
@@ -200,7 +226,7 @@ var unselectAllOfTheSameType = function(ele) {
 var removed;
 var removedSelected;
 
-  // demo your core ext
+  // Context Menu Functions
   var contextMenu = cy.contextMenus({
     menuItems: [
     {
@@ -215,11 +241,15 @@ var removedSelected;
           inputType: 'textarea',
           callback: function(result) {
             if (result !== null && result !== "") {
-              var inp = result;
-              target.json({data: {name: inp} });
-            }
-          }
-        });
+
+              var info = {
+                input: result,
+                targetID: target.id()
+              }
+
+              socket.emit('edit', info);
+
+            }}});
       }
     },
     {
@@ -254,8 +284,6 @@ var removedSelected;
       selector: '*',
       onClickFunction: function (event) {
         var target = event.target || event.cyTarget;
-        
-        var pos = event.position || event.cyPosition;
 
         bootbox.prompt({
           title: "Type Your Question Here:",
@@ -269,30 +297,16 @@ var removedSelected;
               numE += 0.00000000001;
               var newEdge = 10 + numE;
 
-              cy.add([
-              {
-                group: 'nodes', 
-                data: {id: newID, type: 'q', name: inp, user: 'new'},
-                style: {
-                  'background-color': '#7A8B8B',
-                  'background-opacity': '0.8'
-                }
-              }, {
-                group: 'edges',
-                data: {
-                  id: newEdge,
-                  source: target.id(),
-                  target: newID
-                }}
-                ]);
+              var info = {
+                input: result,
+                targetID: target.id(),
+                QID: newID,
+                EID: newEdge
+              }
 
-              var layout = cy.elements().layout({
-                name: 'cose-bilkent',
-                avoidOverlap: true
-              });
+              socket.emit('addQuestion', info);
 
-              layout.run();
-            }}}).then(updateBounds());
+            }}});
       }
     },
     {
@@ -315,28 +329,21 @@ var removedSelected;
               numQ += 0.00000000001;
               var newID = 1 + numQ;
 
-              cy.add([
-              {
-                group: 'nodes', 
-                data: {id: newID, type: 'q', name: inp, user: 'new'},
-                position: {
-                  x: pos.x,
-                  y: pos.y
-                },
-                style: {
-                  'background-color': '#7A8B8B',
-                  'background-opacity': '0.8'
-                }
-              }]);
-            }}
-          }).then(updateBounds());
+              var info = {
+                input: result,
+                QID: newID,
+                position: pos
+              }
+
+              socket.emit('addQuestionCore', info);
+
+            }}});
       }
     },
     {
       id: 'add-new-answer',
       content: 'Add New Answer',
       selector: '*',
-      //coreAsWell: false,
       onClickFunction: function (event) {
 
         var target = event.target || event.cyTarget;
@@ -581,7 +588,7 @@ var removedSelected;
   });
 
 
-//Qtip
+//Q-Tip
 
 cy.elements().qtip({
   content: function(){ return 'Last edited by ' + this.data('user') },
@@ -598,7 +605,7 @@ cy.elements().qtip({
   }
 });
 
-//Edge Handles to connect Nodes
+//Edge Handles to Connect Nodes
 
 cy.edgehandles('drawon');
 

@@ -13,12 +13,12 @@ var mongoose = require('mongoose');
 var socket = require('socket.io');
 
 
-mongoose.connect('mongodb://localhost/loginapp');
+mongoose.connect('mongodb://localhost/mindconnect');
 var db = mongoose.connection;
 
 var routes = require('./routes/index');
 var users = require('./routes/users');
-var secure = require('./routes/secure');
+var accounts = require('./routes/accounts');
 
 // Init App
 var app = express();
@@ -80,31 +80,13 @@ app.use(function (req, res, next) {
 
 app.use('/', routes);
 app.use('/users', users);
-//app.use('/data', secure);
+app.use('/accounts', accounts);
 
 //mongoose.connect('mongodb://localhost/testdb');
 
 /*db.on('error', console.error.bind(console, 'connection error'));
 
 db.once('open', function() {
-
-app.get('/init', function(req, res){
-    db.insert({ 
-        text:"My test event A", 
-        start_date: new Date(2013,8,1),
-        end_date:   new Date(2013,8,5)
-    });
-    db.insert({ 
-        text:"One more test event", 
-        start_date: new Date(2013,8,3),
-        end_date:   new Date(2013,8,8),
-        color: "#DD8616"
-    });
-
-
-    res.send("Test events were added to the database")
-});*/
-
 
 /*app.get('/data', function(req, res){
     db.find().toArray(function(err, data){
@@ -161,9 +143,24 @@ var server = app.listen(app.get('port'), function(){
   console.log('Server Started on Port '+ app.get('port'));
 });
 
+
 //Socket Setup
 var io = socket(server);
 
-io.on('connection', function(socket){
-  console.log('socket connection made');
+io.sockets.on('connection', function(socket){
+  
+  console.log('socket connection made with id ' + socket.id);
+
+  socket.on('edit', function(info){
+    io.sockets.emit('edit', info);
+  });
+
+  socket.on('addQuestion', function(info){
+    io.sockets.emit('addQuestion', info);
+  });
+
+  socket.on('addQuestionCore', function(info) {
+    io.sockets.emit('addQuestionCore', info);
+  });
+
 });

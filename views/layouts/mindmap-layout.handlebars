@@ -9,8 +9,6 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="keywords" content="footer, address, phone, icons" />
-
-  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.3/socket.io.js"></script>
   
   <link rel="stylesheet" href="/css/footer-distributed-with-address-and-phones.css">
   
@@ -56,7 +54,8 @@
   <script type="text/javascript" src="js/cytoscape-context-menus.js"></script>
   <script type="text/javascript" src="js/cytoscape-edgehandles.js"></script>
   <script type="text/javascript" src="js/cytoscape-qtip.js"></script>
-  <script type="text/javascript" src="js/data.js"></script>
+
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.3/socket.io.js"></script>
   <script type="text/javascript" src="js/main.js"></script>
 
   <script src="https://cdn.rawgit.com/cytoscape/cytoscape.js-cose-bilkent/1.6.12/cytoscape-cose-bilkent.js"></script>
@@ -82,7 +81,7 @@
    <ul>
        <li><a href="#"><span class="fa fa-plus" id="add-member"></span></a></li>
        <li><a href="#"><span class="fa fa-circle" id="show-members"></span></a></li>
-       <li><a href="#"><span class="icon-home" id="profile"></span></a></li>
+       <li><a href="/accounts/{{user.id}}"><span class="icon-home" id="profile"></span></a></li>
        <li><a href="#"><span class="fa fa-download" id="download"></span></a></li>
        <li><a href="#"><span class="fa fa-floppy-o" id="save"></span></a></li>
    </ul>
