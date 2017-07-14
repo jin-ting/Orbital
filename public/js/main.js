@@ -9,6 +9,7 @@ $(document).ready(function() {
   socket.on('addQuestionCore', addQuestionOnCore);
   socket.on('addAnswer', addAnswerEdge);
   socket.on('addAnswerOnCore', newAnswerOnCore);
+  socket.on('CustomNode')
 
   function newAnswerOnCore(info) {
     cy.add([
