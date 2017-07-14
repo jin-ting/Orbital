@@ -4,12 +4,83 @@ $(document).ready(function() {
 
   var socket = io.connect('http://localhost:3000');
 
+  var removed;
+
   socket.on('edit', editNode);
   socket.on('addQuestion', addQuestionEdge);
   socket.on('addQuestionCore', addQuestionOnCore);
   socket.on('addAnswer', addAnswerEdge);
   socket.on('addAnswerOnCore', newAnswerOnCore);
-  socket.on('CustomNode')
+  socket.on('CustomNode', AddCustomNode);
+  socket.on('CustomNodeOnCore', AddCustomNodeOnCore);
+  socket.on('removeNode', remove);
+  socket.on('undoRemove', undoRemoveNode);
+
+  function undoRemoveNode(info) {
+    if (removed) {
+      removed.restore();
+    }
+  }
+
+  function remove(info) {
+    var target = cy.getElementById(info.targetID);
+    removed = target.remove();
+  }
+
+  function AddCustomNodeOnCore(info) {
+    cy.add([
+    {
+      group: 'nodes', 
+      data: {id: info.CID, type: 'a', name: info.input, user: 'new'},
+      position: {
+        x: info.position.x,
+        y: info.position.y
+      },
+      style: {
+        'background-color': '#4E313E',
+        'background-opacity': '0.6',
+        'shape': 'rectangle',
+        'border-color': '#4E313E'
+      }
+    }]);
+
+    updateBounds();
+  }
+
+
+  function AddCustomNode(info) {
+
+    cy.add([
+    {
+      group: 'nodes', 
+      data: {id: info.CID, type: 'a', name: info.input, user: 'new'},
+      style: {
+        'background-color': '#4E313E',
+        'background-opacity': '0.6',
+        'shape': 'rectangle',
+        'border-color': '#4E313E'
+      }
+    }, {
+      group: 'edges',
+      data: {
+        id: info.EID,
+        source: info.targetID,
+        target: info.CID
+      }, style: {
+        'line-color': '#4E313E'
+      }}
+      ]);
+
+    var layout = cy.elements().layout({
+      name: 'cose-bilkent',
+      avoidOverlap: true
+    });
+
+    layout.run();
+
+    updateBounds();
+
+  }
 
   function newAnswerOnCore(info) {
     cy.add([
@@ -313,7 +384,11 @@ var removedSelected;
       selector: 'node, edge',
       onClickFunction: function (event) {
         var target = event.target || event.cyTarget;
-        removed = target.remove();
+        info = {
+          targetID: target.id()
+        }
+
+        socket.emit('removeNode', info);
         
         contextMenu.showMenuItem('undo-last-remove');
       },
@@ -326,9 +401,9 @@ var removedSelected;
       show: false,
       coreAsWell: true,
       onClickFunction: function (event) {
-        if (removed) {
-          removed.restore();
-        }
+
+        socket.emit('undoRemove');
+
         contextMenu.hideMenuItem('undo-last-remove');
       },
       hasTrailingDivider: true
@@ -486,36 +561,16 @@ var removedSelected;
               numE += 0.00000000001;
               var newEdge = 10 + numE;
 
-              cy.add([
-              {
-                group: 'nodes', 
-                data: {id: newID, type: 'a', name: inp, user: 'new'},
-                style: {
-                  'background-color': '#4E313E',
-                  'background-opacity': '0.6',
-                  'shape': 'rectangle',
-                  'border-color': '#4E313E'
-                }
-              }, {
-                group: 'edges',
-                data: {
-                  id: newEdge,
-                  source: target.id(),
-                  target: newID
-                }, style: {
-                  'line-color': '#4E313E'
-                }}
-                ]);
+              info = {
+                input: result,
+                targetID: target.id(),
+                CID: newID,
+                EID: newEdge
+              }
 
-              var layout = cy.elements().layout({
-                name: 'cose-bilkent',
-                avoidOverlap: true
-              });
+              socket.emit('CustomNode', info);
 
-              layout.run();
-
-            }}
-          }).then(updateBounds());
+            }}});
       }
     },
     {
@@ -540,77 +595,16 @@ var removedSelected;
               numC += 0.00000000001;
               var newID = 3 + numC;
 
-              cy.add([
-              {
-                group: 'nodes', 
-                data: {id: newID, type: 'a', name: inp, user: 'new'},
-                position: {
-                  x: pos.x,
-                  y: pos.y
-                },
-                style: {
-                  'background-color': '#4E313E',
-                  'background-opacity': '0.6',
-                  'shape': 'rectangle',
-                  'border-color': '#4E313E'
-                }
-              }]);
-            }}
-          }).then(updateBounds());
-      }
-    },
-    {
-      id: 'remove-selected',
-      content: 'Remove Selected',
-      coreAsWell: true,
-      show: false,
-      onClickFunction: function (event) {
-        removedSelected = cy.$(':selected').remove();
+              info = {
+                input: result,
+                position: pos,
+                CID: newID
+              }
 
-        contextMenu.hideMenuItem('remove-selected');
-        contextMenu.showMenuItem('restore-selected');
-      }
-    },
-    {
-      id: 'restore-selected',
-      content: 'Restore Selected',
-      coreAsWell: true,
-      show: false,
-      onClickFunction: function (event) {
-        if (removedSelected) {
-          removedSelected.restore();
-        }
-        //contextMenu.showMenuItem('remove-selected');
-        contextMenu.hideMenuItem('restore-selected');
-      }
-    },                      
-    {
-      id: 'select-all-nodes',
-      content: 'Select All Nodes',
-      selector: 'node',
-      show: true,
-      onClickFunction: function (event) {
-        selectAllOfTheSameType(event.target || event.cyTarget);
-        
-        contextMenu.hideMenuItem('select-all-nodes');
-        contextMenu.showMenuItem('remove-selected');
-        contextMenu.showMenuItem('unselect-all-nodes');
-      }
-    },
-    {
-      id: 'unselect-all-nodes',
-      content: 'Unselect All Nodes',
-      selector: 'node',
-      show: false,
-      onClickFunction: function (event) {
-        unselectAllOfTheSameType(event.target || event.cyTarget);
-        
-        contextMenu.showMenuItem('select-all-nodes');
-        contextMenu.hideMenuItem('remove-selected');
-        contextMenu.hideMenuItem('unselect-all-nodes');
-      }
-    }]
-  });
+              socket.emit('CustomNodeOnCore', info);
+            }}});
+      }}]
+    });
 
 
 //Q-Tip

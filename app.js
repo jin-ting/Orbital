@@ -172,4 +172,20 @@ io.sockets.on('connection', function(socket){
     io.sockets.emit('addAnswerOnCore', info);
   });
 
+  socket.on('CustomNode', function(info) {
+    io.sockets.emit('CustomNode', info);
+  });
+
+  socket.on('CustomNodeOnCore', function(info) {
+    io.sockets.emit('CustomNodeOnCore', info);
+  });
+
+  socket.on('removeNode', function(info) {
+    io.sockets.emit('removeNode', info);
+  });
+
+  socket.on('undoRemove', function() {
+    io.sockets.emit('undoRemove');
+  });
+
 });
