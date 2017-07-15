@@ -1,7 +1,16 @@
   $(document).ready(function() {
 
-    $("[data-toggle=popover]")
-    .popover({html:true})
+    $('#bio').click(function(){
+      bootbox.prompt({
+        title: "Enter Your Description Below:",
+        inputType: 'textarea',
+        callback: function(result) {
+          if (result != "" && result != null)
+        document.getElementById('user-bio').innerHTML = result;
+      }});
+    });
+
+    $("[data-toggle=popover]").popover({html:true});
 
 
     $('.popover-markup>.trigger').popover({

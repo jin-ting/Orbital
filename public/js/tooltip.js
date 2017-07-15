@@ -1,6 +1,16 @@
 
 $(document).ready(function() {
 
+     $("#bio").click(function() {
+      bootbox.prompt({
+        title: "na"
+        inputType: "textarea",
+        callback: function(result) {
+          $('#user-bio').innerHTML(result);
+        }
+      });
+    });
+
 
 /* Tooltip */
 

@@ -1,6 +1,6 @@
 
 {{#if user}}
-<div id="particles-js">
+<div id="particles-js" style="height: 950px">
 <div class="container">
 
 <div class="row row-offcanvas row-offcanvas-right">
@@ -11,7 +11,8 @@
 </p>
 <div class="jumbotron">
 <h1>Welcome to {{user.name}}'s bio</h1>
-The goal of MindConnect is to enable friends to work together to make studying a lot easier (and enjoyable!). MindConnect is a student-friendly interactive studying tool that allows students to collaborate and work together to grasp key concepts easily and quickly via a mindmap platform.
+<p style="font-size: 1em" id="user-bio">The goal of MindConnect is to enable friends to work together to make studying a lot easier (and enjoyable!). MindConnect is a student-friendly interactive studying tool that allows students to collaborate and work together to grasp key concepts easily and quickly via a mindmap platform.</p> <br><br>
+<button id="bio">Edit</button>
 </div>
 
 {{# each profiles }}
@@ -94,7 +95,7 @@ The goal of MindConnect is to enable friends to work together to make studying a
 </div>
 </div>
 
-  <footer class="footer-distributed" style="margin-top: 18%">
+  <footer class="footer-distributed" style="position: absolute; margin-top: 70%">
 
     <div class="footer-left">
 
