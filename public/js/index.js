@@ -10,8 +10,9 @@
       }});
     });
 
-    $("[data-toggle=popover]").popover({html:true});
 
+//Profile page privacy mode
+    $("[data-toggle=popover]").popover({html:true});
 
     $('.popover-markup>.trigger').popover({
       html: true,

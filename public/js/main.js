@@ -30,7 +30,7 @@ $(document).ready(function() {
   function AddCustomNodeOnCore(info) {
     cy.add([
     {
-      group: 'nodes', 
+      group: 'nodes',
       data: {id: info.CID, type: 'a', name: info.input, user: 'new'},
       position: {
         x: info.position.x,
@@ -52,7 +52,7 @@ $(document).ready(function() {
 
     cy.add([
     {
-      group: 'nodes', 
+      group: 'nodes',
       data: {id: info.CID, type: 'a', name: info.input, user: 'new'},
       style: {
         'background-color': '#4E313E',
@@ -85,7 +85,7 @@ $(document).ready(function() {
   function newAnswerOnCore(info) {
     cy.add([
     {
-      group: 'nodes', 
+      group: 'nodes',
       data: {id: info.AID, type: 'a', name: info.input, user: 'new'},
       position: {
         x: info.position.x,
@@ -105,7 +105,7 @@ $(document).ready(function() {
   function addAnswerEdge(info) {
     cy.add([
     {
-      group: 'nodes', 
+      group: 'nodes',
       data: {id: info.AID, type: 'a', name: info.input, user: 'new'},
       style: {
         'background-color': '#D09683',
@@ -138,7 +138,7 @@ $(document).ready(function() {
 
     cy.add([
     {
-      group: 'nodes', 
+      group: 'nodes',
       data: {id: info.QID, type: 'q', name: info.input, user: 'new'},
       position: {
         x: info.position.x,
@@ -157,7 +157,7 @@ $(document).ready(function() {
 
     cy.add([
     {
-      group: 'nodes', 
+      group: 'nodes',
       data: {id: info.QID, type: 'q', name: info.input, user: 'new'},
       style: {
         'background-color': '#7A8B8B',
@@ -347,7 +347,7 @@ var unselectAllOfTheSameType = function(ele) {
   else if(ele.isEdge()) {
     cy.edges().unselect();
   }
-};  
+};
 
 var removed;
 var removedSelected;
@@ -389,7 +389,7 @@ var removedSelected;
         }
 
         socket.emit('removeNode', info);
-        
+
         contextMenu.showMenuItem('undo-last-remove');
       },
       hasTrailingDivider: true
@@ -407,7 +407,7 @@ var removedSelected;
         contextMenu.hideMenuItem('undo-last-remove');
       },
       hasTrailingDivider: true
-    },                      
+    },
     {
       id: 'add-new-question',
       content: 'Add New Question',
@@ -447,7 +447,7 @@ var removedSelected;
 
         var pos = event.position || event.cyPosition;
 
-        
+
 
         bootbox.prompt({
           title: "Type Your Question Here:",
@@ -583,7 +583,7 @@ var removedSelected;
 
         var pos = event.position || event.cyPosition;
 
-        var inp;  
+        var inp;
 
         bootbox.prompt({
           title: "Type Your Content Here:",
