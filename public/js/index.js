@@ -22,7 +22,9 @@
       content: function () {
         return $(this).parent().find('.content').html();
       }
+
     });
+  
 
   //Contact Form Popup
 
